@@ -1,0 +1,36 @@
+S -> aAB
+A -> aAB
+A -> b
+B -> b
+/
+aabbb
+==
+S -> {LR
+R -> }
+L -> xAYPZ
+L -> iXTLC
+C -> d
+C -> eLD
+A -> =
+Y -> y
+P -> +
+Z -> z
+X -> x
+T -> t
+D -> d
+/
+{ixtx=y+zeixtx=y+zdd}
+==
+S -> aS
+S -> bSS
+S -> c
+/
+abcc
+==
+S -> 1ABCD
+A -> +
+B -> 1
+C -> =
+D -> 2
+/
+1+1=2
