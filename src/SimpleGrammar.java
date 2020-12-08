@@ -118,7 +118,13 @@ public class SimpleGrammar {
 
 
 		//TODO - check if logic correct; rushed cos battery dying
-		rhsMap.put(terminal, rhs.substring(1)); //NOTE - if terminal already exists, this overwrites it. what we want is for Exception to be raised
+		//rhsMap.put(terminal, rhs.substring(1)); //NOTE - if terminal already exists, this overwrites it. what we want is for Exception to be raised
+		if (!rhsMap.containsKey(terminal)) {
+			rhsMap.put(terminal, rhs.substring(1));
+		} else {
+			throw new InvalidProductionException(production, InvalidProductionException.NOT_SIMPLE);
+		}
+
 		productionRules.put(lhsChar, rhsMap);
 
 
