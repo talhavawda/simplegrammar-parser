@@ -116,7 +116,9 @@ public class SimpleGrammar {
 			rhsMap = productionRules.get(lhsChar);
 		}
 
-		//rhsMap.add(rhs);
+
+		//TODO - check if logic correct; rushed cos battery dying
+		rhsMap.put(terminal, rhs.substring(1)); //NOTE - if terminal already exists, this overwrites it. what we want is for Exception to be raised
 		productionRules.put(lhsChar, rhsMap);
 
 
