@@ -5,7 +5,7 @@ public class SimpleGrammar {
 	//FIELDS
 	private Set<Character> variables;
 	private Set<Character> terminals;
-	private static final char[] specialTerminals = new char[]{'{', '}', '=', '+'}; //TODO - add more
+	private static Set<Character> specialTerminals;
 
 	private boolean firstRule = false; //to determine whether to make the LHS variable of a Production, the Start Variable
 	private Character startVariable;
@@ -26,6 +26,16 @@ public class SimpleGrammar {
 		variables = new LinkedHashSet<>(); //LinkedHashSet so that the variables are stored in insertion order (S, A, B...)
 		terminals = new TreeSet<>(); //TreeSet so that the terminals are stored in alphabetical order
 		productionRules = new LinkedHashMap<>(); //LinkedHashMap so that the keys (Variables on LHS) are stored in insertion order (S, A, B...)
+
+		if (specialTerminals == null) {
+			//if this is the first grammar for the program then specialTerminals woudln't have been initialised yet, so initialise it
+			specialTerminals = new HashSet<Character>();
+			specialTerminals.add('{');
+			specialTerminals.add('}');
+			specialTerminals.add('+');
+			specialTerminals.add('=');
+			//TODO - add more
+		}
 	}
 
 	public void addStartVariable(Character start){
@@ -45,7 +55,7 @@ public class SimpleGrammar {
 			//this is a valid Production Rule (in general)
 			//in the TestData.txt file, there are 2 whitespace characters on either side of the '->' (rewrite symbol)
 			lhs = production.substring(0, production.indexOf(" "));
-			rhs = production.substring(0, production.lastIndexOf(" ") + 1);
+			rhs = production.substring(production.lastIndexOf(" ") + 1);
 		} else {
 			throw new InvalidProductionException(production, InvalidProductionException.NO_REWRITE);
 		}
@@ -70,7 +80,7 @@ public class SimpleGrammar {
 
 		Character terminal = rhs.charAt(0);
 
-		if (terminal < 'a' || terminal > 'z' || !Arrays.asList(specialTerminals).contains(terminal)) {
+		if ((terminal < 'a' || terminal > 'z') && !specialTerminals.contains(terminal)) {
 			//ALT: if (!Character.isLowerCase(terminal) && Character.isLetter(terminal))
 				//!Character.isLetter(terminal) - means that special terminals are all characters that are not a letter
 					//for the current condition, a special terminal is one that is is in the specialTerminals array
@@ -136,5 +146,29 @@ public class SimpleGrammar {
 
 	}
 
+	@Override
+	public String toString() {
 
+		String result = "Simple Grammar:" + "\n\tVariables = " + variables + "\n\tTerminals = " + terminals + "\n\tStart Variable = " + startVariable +  "\n\tProduction Rules:\n";
+
+		Set<Map.Entry<Character, Map<Character, String>>> productionRulesSet = productionRules.entrySet();
+
+		for (Map.Entry<Character, Map<Character, String>> lhsProductionRules: productionRulesSet) {
+			Character lhs =  lhsProductionRules.getKey();
+
+
+			Map<Character, String> rhsProductionsMap = lhsProductionRules.getValue();
+			Set<Map.Entry<Character, String>> rhsProductionsSet = rhsProductionsMap.entrySet(); //The RHS side of the Production Rules involving this LHS
+
+			for (Map.Entry<Character, String> rhsProduction: rhsProductionsSet) {
+				Character terminal = rhsProduction.getKey();
+				String variables = rhsProduction.getValue();
+				result += "\t\t" + lhs + " -> " + terminal + variables + "\n";
+			}
+
+
+		}
+
+		return result;
+	}
 }

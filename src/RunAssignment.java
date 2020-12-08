@@ -38,15 +38,19 @@ public class RunAssignment {
 				line = inputFile.nextLine();
 			}
 
+			boolean validGrammar = true;
+
 			do {
+
 
 				try {
 					g.addProductionRule(line);
 				} catch (InvalidProductionException e) {
 					System.out.println(e.toString());
-					System.out.println("This application will now terminate.");
+					//System.out.println("This application will now terminate.");
+					validGrammar = false;
 					e.printStackTrace();
-					System.exit(1);
+					//System.exit(1);
 				}
 
 
@@ -55,6 +59,8 @@ public class RunAssignment {
 				}
 
 			} while (!line.equals("/"));
+
+			System.out.println(g);
 
 
 
@@ -69,6 +75,7 @@ public class RunAssignment {
 			do {
 
 				//... (Code goes here)
+				// if validGrammar == false, then dont do anything with the input (jsut read in next lines so we can progress to next grammar)
 
 
 				if (inputFile.hasNextLine()) {
