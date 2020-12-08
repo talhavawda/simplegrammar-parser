@@ -26,9 +26,6 @@ public class RunAssignment {
 
 			String line = ""; //store the current line from the file
 
-			//if (inputFile.hasNextLine()) {
-			//	line = inputFile.nextLine();
-			//}
 
 			/*
 				Read in the grammar Production Rules
@@ -36,8 +33,6 @@ public class RunAssignment {
 
 			SimpleGrammar g = new SimpleGrammar();
 
-
-			boolean firstRule = false;
 
 			if (inputFile.hasNextLine()) {
 				line = inputFile.nextLine();
@@ -53,28 +48,15 @@ public class RunAssignment {
 					e.printStackTrace();
 					System.exit(1);
 				}
-				/*
-				if (line.contains("->")) {
-					//this is a valid Production Rule (in general)
-					//in the TestData.txt file, there are 2 whitespace characters on either side of the '->' (rewrite symbol)
-					String lhs = line.substring(0, line.indexOf(" "));
-					String rhs = line.substring(0, line.lastIndexOf(" ")+1);
-				}
 
-				*/
-
-
-				if (firstRule == false) {
-
-
-					firstRule = true;
-				}
 
 				if (inputFile.hasNextLine()) {
 					line = inputFile.nextLine();
 				}
 
 			} while (!line.equals("/"));
+
+
 
 			/*
 				Read in the test input strings for this grammar
@@ -85,6 +67,8 @@ public class RunAssignment {
 			}
 
 			do {
+
+				//... (Code goes here)
 
 
 				if (inputFile.hasNextLine()) {
