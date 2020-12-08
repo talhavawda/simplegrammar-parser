@@ -1,13 +1,20 @@
 import java.io.IOException;
 
+/**
+ *  Exception for Productions Rules that violate Simple-Grammar restrictions/constraints (i.e. they are not a s-grammar production)
+ */
 public class InvalidProductionException extends IOException {
 
 	String invalidProduction;
 	String invalidType; //Reason why this Production is invalid, e.g. 'Rewrite symbol not found'
 
+	public static final String INVALID_PRODUCTION = "Production is not a valid Production Rule";
 	public static final String NO_REWRITE = "Production doesn't contain the Rewrite (->) symbol";
-	public static final String NOT_SIMPLE = "Production is not a Simple Production";
+	public static final String NOT_CONTEXT_FREE = "Production is not a valid Context-Free Grammar Production";
+	public static final String NOT_SIMPLE = "Production is not a valid Simple-Grammar Production";
 	public static final String INVALID_VARIABLE = "Production contains an invalid Variable";
+	public static final String INVALID_TERMINAL = "Production contains an invalid Terminal";
+
 
 	public  InvalidProductionException(String production, String type) {
 		super(explanation(production, type));
@@ -29,7 +36,7 @@ public class InvalidProductionException extends IOException {
 		String type = invalidType;
 
 		if (type.equals(InvalidProductionException.INVALID_VARIABLE)) {
-			type += " (" + invalidProduction.charAt(0) + ")";
+			type += " ('" + invalidProduction.charAt(0) + "')";
 		}
 
 		String toInsert = " '" + invalidProduction + "'";
@@ -51,7 +58,7 @@ public class InvalidProductionException extends IOException {
 	public static String explanation(String invalidProduction, String invalidType) {
 
 		if (invalidType.equals(InvalidProductionException.INVALID_VARIABLE)) {
-			invalidType += " (" + invalidProduction.charAt(0) + ")";
+			invalidType += " ('" + invalidProduction.charAt(0) + "')";
 		}
 
 		String toInsert = " '" + invalidProduction + "'";
