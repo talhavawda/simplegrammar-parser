@@ -7,7 +7,7 @@ public class SimpleGrammar {
 	private Set<Character> terminals;
 	private static Set<Character> specialTerminals;
 
-	private boolean firstRule = false; //to determine whether to make the LHS variable of a Production, the Start Variable
+	private boolean firstRule = true; //is the current rule to be added the first rule - to determine whether to make the LHS variable of a Production, the Start Variable
 	private Character startVariable;
 
 	/*
@@ -110,12 +110,12 @@ public class SimpleGrammar {
 			Add Production Rule (if we reach this point, then the Production Rule is a valid Simple-Grammar Production)
 		 */
 
-		this.variables.add(lhsChar); //Since variables is a Set, if it already contains lhsChar, it won't re-add it
+		this.variables.add(lhsChar); //Since variables is a Set, if it already contains lhsChar, it won't re-add it | only adding variables from LHS of rules, because if its on the right of a rule, then its guaranteed to be on the left of a rule
 		this.terminals.add(terminal); //Since terminals is a Set, if it already contains terminal, it won't re-add it
 
-		if (firstRule == false) {
+		if (firstRule == true) {
 			this.startVariable = lhsChar;
-			firstRule = true;
+			firstRule = false;
 		}
 
 		Map<Character, String> rhsMap;
@@ -123,20 +123,17 @@ public class SimpleGrammar {
 		if (!productionRules.containsKey(lhsChar)) {
 			rhsMap = new TreeMap<Character, String>(); //TreeMap so that the RHS side for this Variable is in ascending order of terminals
 		} else {
-			rhsMap = productionRules.get(lhsChar);
+			rhsMap = productionRules.get(lhsChar); //get value
 		}
 
 
-		//TODO - check if logic correct; rushed cos battery dying
-		//rhsMap.put(terminal, rhs.substring(1)); //NOTE - if terminal already exists, this overwrites it. what we want is for Exception to be raised
 		if (!rhsMap.containsKey(terminal)) {
 			rhsMap.put(terminal, rhs.substring(1));
-		} else {
+		} else { //if for this Variable on the LHS of a production, it already has this same terminal on the RHS of the production, then this terminal cannot occur again on the RHS of another production for this LHS variable
 			throw new InvalidProductionException(production, InvalidProductionException.NOT_SIMPLE);
 		}
 
 		productionRules.put(lhsChar, rhsMap);
-
 
 
 	}
@@ -144,6 +141,71 @@ public class SimpleGrammar {
 
 	public void parseString(String s) {
 
+		System.out.println("\nParsing the input string '" + s + "' using leftmost derivation:");
+
+		if (s.length() == 0) {
+			System.out.println("The input string is empty and as such does not belong to the language\nthat this grammar defines as there is no epsilon Production Rule");
+		}
+
+
+		Stack<Character> sententialFormVariables = new Stack<Character>();
+		String sententialFormTerminals = "";
+		String derivation = "";
+
+		sententialFormVariables.push(this.startVariable);
+		derivation += "\t" + this.startVariable + "\t->\t";
+
+		/*
+			For each character in the input string
+		 */
+		for (int i = 0; i < s.length(); i ++) {
+			Character c = s.charAt(i);
+
+			Character leftmostVariable = sententialFormVariables.pop();
+
+			Map<Character, String> rhsProductionsMap = productionRules.get(leftmostVariable);
+
+
+			if (rhsProductionsMap.containsKey(c)) {
+
+				sententialFormTerminals += c;
+				String rhsVariables = rhsProductionsMap.get(c);
+
+				for (int j = rhsVariables.length()-1; j >= 0; j--) { //we want the leftmost variable in rhsVariables to be at the top of the stack, so we push it last
+					Character v = rhsVariables.charAt(j);
+					sententialFormVariables.push(v);
+
+				}
+
+
+				/*
+					Add this derivation to the derivation string
+				 */
+
+				List<Character> sfVariablesList = new ArrayList<>(sententialFormVariables); //get a list of the stack so that we can display the sentential form
+
+				String sfVariablesString = "";
+				for (Character v : sfVariablesList) {
+					sfVariablesString += v;
+				}
+
+
+				derivation += sententialFormTerminals + sfVariablesString + "\n\t\t->\t";
+
+
+			} else  {
+				//there is no matching production rule with leftmostVariable on LHS and c being the terminal on RHS
+				//this string doesnt belong to the language that the grammar defines
+
+				//..code
+				break;
+			}
+
+
+
+		}
+
+		System.out.println(derivation);
 	}
 
 	@Override

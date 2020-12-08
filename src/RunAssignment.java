@@ -24,6 +24,8 @@ public class RunAssignment {
 				each iteration of this while loop is for a single grammar and its input strings
 			 */
 
+			System.out.println("=============================== Reading in a Grammar ===============================");
+
 			String line = ""; //store the current line from the file
 
 
@@ -60,13 +62,24 @@ public class RunAssignment {
 
 			} while (!line.equals("/"));
 
-			System.out.println(g);
+			if (validGrammar == true) {
+				System.out.println("The Grammar read in is a valid Simple Grammar");
+				System.out.println(g); //Display the grammar that was read in
+
+			} else  {
+				System.out.println("The Grammar read in is NOT a valid Simple Grammar");
+			}
 
 
 
 			/*
 				Read in the test input strings for this grammar
 			 */
+
+			if (validGrammar == true) {
+				System.out.println("================= Parsing the test input strings for this grammar =================");
+			}
+
 
 			if (inputFile.hasNextLine()) {
 				line = inputFile.nextLine();
@@ -75,7 +88,10 @@ public class RunAssignment {
 			do {
 
 				//... (Code goes here)
-				// if validGrammar == false, then dont do anything with the input (jsut read in next lines so we can progress to next grammar)
+
+				if (validGrammar == true) {
+					g.parseString(line); //parseString() displays the output
+				}
 
 
 				if (inputFile.hasNextLine()) {
@@ -84,7 +100,8 @@ public class RunAssignment {
 
 			} while (!line.equals("=="));
 
-
+			System.out.println("\n======================================================================================");
+			System.out.println("======================================================================================\n\n");
 		}
 
 
