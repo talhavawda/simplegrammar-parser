@@ -13,8 +13,12 @@ public class SimpleGrammar {
 	/*
 		Each key in the map is a Variable on the LHS of a Production Rule,
 		and the value is the list of RHS of Production Rules that it generates
+
+		Inner Map: (its a Map cos for each LHS Variable, the terminals on the RHS are unique (1 instance for each terminal))
+			key: Character is the terminal on RHS
+			value: String is Variables on RHS
 	 */
-	private Map<Character, Set<String>> productionRules;
+	private Map<Character, Map<Character, String>> productionRules;
 
 
 
@@ -104,16 +108,16 @@ public class SimpleGrammar {
 			firstRule = true;
 		}
 
-		Set<String> rhsSet;
+		Map<Character, String> rhsMap;
 
 		if (!productionRules.containsKey(lhsChar)) {
-			rhsSet = new TreeSet<String>(); //TreeSet so that the RHS side for this Variable is in ascending order of terminals
+			rhsMap = new TreeMap<Character, String>(); //TreeMap so that the RHS side for this Variable is in ascending order of terminals
 		} else {
-			rhsSet = productionRules.get(lhsChar);
+			rhsMap = productionRules.get(lhsChar);
 		}
 
-		rhsSet.add(rhs);
-		productionRules.put(lhsChar, rhsSet);
+		//rhsMap.add(rhs);
+		productionRules.put(lhsChar, rhsMap);
 
 
 
