@@ -144,22 +144,32 @@ public class SimpleGrammar {
 		System.out.println("\nParsing the input string '" + s + "' using leftmost derivation:");
 
 		if (s.length() == 0) {
-			System.out.println("The input string is empty and as such does not belong to the language\nthat this grammar defines as there is no epsilon Production Rule");
+			System.out.println("\tThe input string is empty and as such does not belong to the language\nthat this grammar defines as there is no epsilon Production Rule");
 		}
 
 
 		Stack<Character> sententialFormVariables = new Stack<Character>();
 		String sententialFormTerminals = "";
-		String derivation = "";
+		//String derivation = "";
 
 		sententialFormVariables.push(this.startVariable);
-		derivation += "\t" + this.startVariable + "\t->\t";
+		System.out.print("\t" + this.startVariable + "\t=>\t");
+		//derivation += "\t" + this.startVariable + "\t->\t";
+
+		boolean acceptString = true; //whether this input string should be accepted (if it belongs to the language) or not
 
 		/*
 			For each character in the input string
 		 */
-		for (int i = 0; i < s.length(); i ++) {
+		for (int i = 0; i < s.length(); i++) {
 			Character c = s.charAt(i);
+
+			if (sententialFormVariables.isEmpty()) {
+				System.out.println("\n\nThe input string has not yet been exhausted but there are no Variables remaining in the sentential form to match to the LHS of a Production Rule");
+				System.out.println("Thus, this input string '" + s + "' does not belong to the language that this grammar defines");
+				acceptString = false;
+				break;
+			}
 
 			Character leftmostVariable = sententialFormVariables.pop();
 
@@ -174,30 +184,36 @@ public class SimpleGrammar {
 				for (int j = rhsVariables.length()-1; j >= 0; j--) { //we want the leftmost variable in rhsVariables to be at the top of the stack, so we push it last
 					Character v = rhsVariables.charAt(j);
 					sententialFormVariables.push(v);
-
-				}
+				} //if rhsVariables is the empty string (Production rewrites to a terminal only) then this loop wont run and no Variables get pushed to the stack (which is what we want)
 
 
 				/*
-					Add this derivation to the derivation string
+					Display this derivation step
 				 */
 
 				List<Character> sfVariablesList = new ArrayList<>(sententialFormVariables); //get a list of the stack so that we can display the sentential form
 
+				/* The top of the stack is at the end of the list, so we have to traverse the list backwards*/
+
 				String sfVariablesString = "";
-				for (Character v : sfVariablesList) {
-					sfVariablesString += v;
+				for (int j = sfVariablesList.size()-1; j >= 0; j--) {
+					sfVariablesString += sfVariablesList.get(j);
 				}
 
+				System.out.print(sententialFormTerminals + sfVariablesString);
 
-				derivation += sententialFormTerminals + sfVariablesString + "\n\t\t->\t";
+				if (i < s.length()-1) { //if not the last derivation, then put the derivation symbol for the next derivation
+					System.out.print("\n\t\t=>\t");
+				}
 
 
 			} else  {
 				//there is no matching production rule with leftmostVariable on LHS and c being the terminal on RHS
 				//this string doesnt belong to the language that the grammar defines
 
-				//..code
+				System.out.println("\n\nThere doesn't exist a Production Rule with Variable '" + leftmostVariable + "' on the LHS and the RHS starting with terminal '" + c + "'");
+				System.out.println("Thus, this input string '" + s + "' does not belong to the language that this grammar defines");
+				acceptString = false;
 				break;
 			}
 
@@ -205,7 +221,16 @@ public class SimpleGrammar {
 
 		}
 
-		System.out.println(derivation);
+		if (!sententialFormVariables.isEmpty()) {
+			System.out.println("\n\nThe input string has been exhausted but there are still Variables remaining in the final sentential form");
+			System.out.println("Thus, this input string '" + s + "' does not belong to the language that this grammar defines");
+			acceptString = false;
+		}
+
+		if (acceptString == true) {
+			System.out.println("\n\nDerivation Complete (The string derived is equal to the input string)");
+			System.out.println("Thus, this input string '" + s + "' belongs to the language that this grammar defines");
+		}
 	}
 
 	@Override

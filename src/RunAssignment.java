@@ -19,6 +19,26 @@ public class RunAssignment {
 			e.printStackTrace();
 		}
 
+
+		/*
+			Structure of the TestData.txt file:
+
+				Production Rules for Grammar 1 (one Rule on each line)
+				...
+				/
+				Test strings for Grammar 1 (one Rule on each line)
+				...
+				==
+				Production Rules for Grammar 2
+				......
+
+
+			Make sure that the last line of the text file is "==" to signify the end of the last grammar
+
+
+		 */
+
+
 		while (inputFile.hasNextLine()){ //traversing through TestData file
 			/*
 				each iteration of this while loop is for a single grammar and its input strings
@@ -51,7 +71,7 @@ public class RunAssignment {
 					System.out.println(e.toString());
 					//System.out.println("This application will now terminate.");
 					validGrammar = false;
-					e.printStackTrace();
+					//e.printStackTrace();
 					//System.exit(1);
 				}
 
@@ -83,6 +103,7 @@ public class RunAssignment {
 
 			if (inputFile.hasNextLine()) {
 				line = inputFile.nextLine();
+
 			}
 
 			do {
@@ -91,6 +112,7 @@ public class RunAssignment {
 
 				if (validGrammar == true) {
 					g.parseString(line); //parseString() displays the output
+					System.out.println("------------------------------------------------------------------------------------------");
 				}
 
 
@@ -100,8 +122,8 @@ public class RunAssignment {
 
 			} while (!line.equals("=="));
 
-			System.out.println("\n======================================================================================");
-			System.out.println("======================================================================================\n\n");
+			System.out.println("\n=============================================================================================================");
+			System.out.println("=============================================================================================================\n\n");
 		}
 
 

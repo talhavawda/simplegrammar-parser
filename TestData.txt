@@ -4,6 +4,10 @@ A -> b
 B -> b
 /
 aabbb
+bbaaa
+a
+aabb
+abbb
 ==
 S -> {LR
 R -> }
@@ -34,3 +38,4 @@ C -> =
 D -> 2
 /
 1+1=2
+==
