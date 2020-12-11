@@ -4,6 +4,8 @@ A -> b
 B -> b
 /
 aabbb
+aaabbbb
+abb
 bbaaa
 a
 aabb
@@ -24,12 +26,17 @@ T -> t
 D -> d
 /
 {ixtx=y+zeixtx=y+zdd}
+{x=y+z}
+{ixtx=y+zeixt=y+zdd}
 ==
 S -> aS
 S -> bSS
 S -> c
 /
 abcc
+aaaabac
+aabcbcc
+bac
 ==
 S -> 1ABCD
 A -> +
@@ -38,4 +45,17 @@ C -> =
 D -> 2
 /
 1+1=2
+1+2=3
+==
+S -> b
+S -> aA
+A -> aB
+B -> aB
+B -> b
+/
+b
+aaab
+aaaaaab
+bb
+abb
 ==

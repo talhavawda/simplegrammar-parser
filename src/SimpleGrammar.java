@@ -83,7 +83,7 @@ public class SimpleGrammar {
 		if ((terminal < 'a' || terminal > 'z') && !specialTerminals.contains(terminal)) {
 			//ALT: if (!Character.isLowerCase(terminal) && Character.isLetter(terminal))
 				//!Character.isLetter(terminal) - means that special terminals are all characters that are not a letter
-					//for the current condition, a special terminal is one that is is in the specialTerminals array
+					//for the current condition, a special terminal is one that is in the specialTerminals array
 				//and with lowercase letters being a terminal, a character is not a terminal if it is a uppercase letter (a Variable)
 				//and such this (ALT) condition only becomes true if 'terminal' variable is an uppercase letter -> thus invalid terminal
 
@@ -91,7 +91,7 @@ public class SimpleGrammar {
 		}
 
 		if (rhs.length() > 1) {
-			//If RHS contains more than 1 character, then the remaining (besides the first) must all be Variables
+			//If RHS contains more than 1 character, then subsequent characters must all be Variables
 
 			for (int i = 1; i < rhs.length(); i++) {
 
@@ -184,7 +184,7 @@ public class SimpleGrammar {
 				for (int j = rhsVariables.length()-1; j >= 0; j--) { //we want the leftmost variable in rhsVariables to be at the top of the stack, so we push it last
 					Character v = rhsVariables.charAt(j);
 					sententialFormVariables.push(v);
-				} //if rhsVariables is the empty string (Production rewrites to a terminal only) then this loop wont run and no Variables get pushed to the stack (which is what we want)
+				} //if rhsVariables is the empty string (Production rewrites to a terminal only) then this loop won't run and no Variables get pushed to the stack (which is what we want)
 
 
 				/*
