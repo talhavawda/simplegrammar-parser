@@ -7,14 +7,14 @@ public class SimpleGrammar {
 	private Set<Character> terminals;
 	private static Set<Character> specialTerminals;
 
-	private boolean firstRule = true; //is the current rule to be added the first rule - to determine whether to make the LHS variable of a Production, the Start Variable
+	private boolean firstRule = true; //the current rule to be added the first rule - to determine whether to make the LHS variable of a Production, the Start Variable
 	private Character startVariable;
 
 	/*
 		Each key in the map is a Variable on the LHS of a Production Rule,
 		and the value is the list of RHS of Production Rules that it generates
 
-		Inner Map: (its a Map cos for each LHS Variable, the terminals on the RHS are unique (1 instance for each terminal))
+		Inner Map: (it's a Map because for each LHS Variable, the terminals on the RHS are unique (1 instance for each terminal))
 			key: Character is the terminal on RHS
 			value: String is Variables on RHS
 	 */
@@ -28,13 +28,23 @@ public class SimpleGrammar {
 		productionRules = new LinkedHashMap<>(); //LinkedHashMap so that the keys (Variables on LHS) are stored in insertion order (S, A, B...)
 
 		if (specialTerminals == null) {
-			//if this is the first grammar for the program then specialTerminals woudln't have been initialised yet, so initialise it
+			//if this is the first grammar for the program then specialTerminals wouldn't have been initialised yet, so initialise it
 			specialTerminals = new HashSet<Character>();
 			specialTerminals.add('{');
 			specialTerminals.add('}');
 			specialTerminals.add('+');
 			specialTerminals.add('=');
-			//TODO - add more
+			specialTerminals.add('0');
+			specialTerminals.add('1');
+			specialTerminals.add('2');
+			specialTerminals.add('3');
+			specialTerminals.add('4');
+			specialTerminals.add('5');
+			specialTerminals.add('6');
+			specialTerminals.add('7');
+			specialTerminals.add('8');
+			specialTerminals.add('9');
+
 		}
 	}
 
@@ -71,7 +81,7 @@ public class SimpleGrammar {
 		Character lhsChar = lhs.charAt(0);
 
 
-		if (lhsChar < 'A' || lhsChar > 'Z' ) { //ALT: Character.isUpperCase(lhsChar)
+		if (lhsChar < 'A' || lhsChar > 'Z' ) {
 			throw new InvalidProductionException(production, InvalidProductionException.INVALID_VARIABLE);
 		}
 
@@ -81,11 +91,7 @@ public class SimpleGrammar {
 		Character terminal = rhs.charAt(0);
 
 		if ((terminal < 'a' || terminal > 'z') && !specialTerminals.contains(terminal)) {
-			//ALT: if (!Character.isLowerCase(terminal) && Character.isLetter(terminal))
-				//!Character.isLetter(terminal) - means that special terminals are all characters that are not a letter
-					//for the current condition, a special terminal is one that is in the specialTerminals array
-				//and with lowercase letters being a terminal, a character is not a terminal if it is a uppercase letter (a Variable)
-				//and such this (ALT) condition only becomes true if 'terminal' variable is an uppercase letter -> thus invalid terminal
+
 
 			throw new InvalidProductionException(production, InvalidProductionException.INVALID_TERMINAL);
 		}
@@ -97,7 +103,7 @@ public class SimpleGrammar {
 
 				Character variable = rhs.charAt(i);
 
-				if (variable < 'A' || variable > 'Z') { //ALT: Character.isUpperCase(variable)
+				if (variable < 'A' || variable > 'Z') {
 					throw new InvalidProductionException(production, InvalidProductionException.INVALID_VARIABLE);
 				}
 
@@ -113,7 +119,7 @@ public class SimpleGrammar {
 		this.variables.add(lhsChar); //Since variables is a Set, if it already contains lhsChar, it won't re-add it | only adding variables from LHS of rules, because if its on the right of a rule, then its guaranteed to be on the left of a rule
 		this.terminals.add(terminal); //Since terminals is a Set, if it already contains terminal, it won't re-add it
 
-		if (firstRule == true) {
+		if (firstRule) {
 			this.startVariable = lhsChar;
 			firstRule = false;
 		}
@@ -150,11 +156,9 @@ public class SimpleGrammar {
 
 		Stack<Character> sententialFormVariables = new Stack<Character>();
 		String sententialFormTerminals = "";
-		//String derivation = "";
 
 		sententialFormVariables.push(this.startVariable);
 		System.out.print("\t" + this.startVariable + "\t=>\t");
-		//derivation += "\t" + this.startVariable + "\t->\t";
 
 		boolean acceptString = true; //whether this input string should be accepted (if it belongs to the language) or not
 
@@ -209,7 +213,7 @@ public class SimpleGrammar {
 
 			} else  {
 				//there is no matching production rule with leftmostVariable on LHS and c being the terminal on RHS
-				//this string doesnt belong to the language that the grammar defines
+				//this string doesn't belong to the language that the grammar defines
 
 				System.out.println("\n\nThere doesn't exist a Production Rule with Variable '" + leftmostVariable + "' on the LHS and the RHS starting with terminal '" + c + "'");
 				System.out.println("Thus, this input string '" + s + "' does not belong to the language that this grammar defines");
@@ -227,7 +231,7 @@ public class SimpleGrammar {
 			acceptString = false;
 		}
 
-		if (acceptString == true) {
+		if (acceptString) {
 			System.out.println("\n\nDerivation Complete (The string derived is equal to the input string)");
 			System.out.println("Thus, this input string '" + s + "' belongs to the language that this grammar defines");
 		}

@@ -23,10 +23,12 @@ public class RunAssignment {
 		/*
 			Structure of the TestData.txt file:
 
-				Production Rules for Grammar 1 (one Rule on each line)
+				Production Rules for Grammar 1 (one Rule on each line) i.e S -> aA | b is written
+				S -> aA
+				S -> b
 				...
 				/
-				Test strings for Grammar 1 (one Rule on each line)
+				Test strings for Grammar 1 (one string on each line)
 				...
 				==
 				Production Rules for Grammar 2
@@ -69,10 +71,7 @@ public class RunAssignment {
 					g.addProductionRule(line);
 				} catch (InvalidProductionException e) {
 					System.out.println(e.toString());
-					//System.out.println("This application will now terminate.");
 					validGrammar = false;
-					//e.printStackTrace();
-					//System.exit(1);
 				}
 
 
@@ -82,7 +81,7 @@ public class RunAssignment {
 
 			} while (!line.equals("/"));
 
-			if (validGrammar == true) {
+			if (validGrammar) {
 				System.out.println("The Grammar read in is a valid Simple Grammar");
 				System.out.println(g); //Display the grammar that was read in
 
@@ -96,7 +95,7 @@ public class RunAssignment {
 				Read in the test input strings for this grammar
 			 */
 
-			if (validGrammar == true) {
+			if (validGrammar) {
 				System.out.println("================= Parsing the test input strings for this grammar =================");
 			}
 
@@ -108,10 +107,9 @@ public class RunAssignment {
 
 			do {
 
-				//... (Code goes here)
 
-				if (validGrammar == true) {
-					g.parseString(line); //parseString() displays the output
+				if (validGrammar) {
+					g.parseString(line); //parseString() displays the derivation
 					System.out.println("------------------------------------------------------------------------------------------");
 				}
 

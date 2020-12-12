@@ -59,3 +59,11 @@ aaaaaab
 bb
 abb
 ==
+S -> AB
+A -> a
+B -> BA
+B -> b
+/
+aba
+abaa
+==
