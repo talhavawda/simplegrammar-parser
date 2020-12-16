@@ -1,0 +1,396 @@
+COMP314 Assignment 2 - Parsing simple-grammars
+	Determining if each Grammar in the TestData text file is a valid Simple Grammar, and if it is, parsing each
+	input test string for this Simple Grammar to determine whether it belongs to the language defined by this Simple Grammar
+
+
+Developed by Group P:
+	Talha Vawda
+	Divya Soomaroo
+	Adin Arumugam
+	Khulekani Mfeka
+====================
+
+
+======================================== Reading in a Grammar ==============================================
+The Grammar read in is a valid Simple Grammar
+Simple Grammar:
+	Variables = [S, A, B]
+	Terminals = [a, b]
+	Start Variable = S
+	Production Rules:
+		S -> aAB
+		A -> aAB
+		A -> b
+		B -> b
+
+========================= Parsing the test input strings for this grammar =========================
+
+Parsing the input string 'aabbb' using left-most derivation:
+	S	=>	aAB
+		=>	aaABB
+		=>	aabBB
+		=>	aabbB
+		=>	aabbb
+
+Derivation Complete (The string derived is equal to the input string)
+Thus, this input string 'aabbb' belongs to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string 'aaabbbb' using left-most derivation:
+	S	=>	aAB
+		=>	aaABB
+		=>	aaaABBB
+		=>	aaabBBB
+		=>	aaabbBB
+		=>	aaabbbB
+		=>	aaabbbb
+
+Derivation Complete (The string derived is equal to the input string)
+Thus, this input string 'aaabbbb' belongs to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string 'abb' using left-most derivation:
+	S	=>	aAB
+		=>	abB
+		=>	abb
+
+Derivation Complete (The string derived is equal to the input string)
+Thus, this input string 'abb' belongs to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string 'bbaaa' using left-most derivation:
+	S	=>	
+
+There doesn't exist a Production Rule with Variable 'S' on the LHS and the RHS starting with terminal 'b'
+Thus, this input string 'bbaaa' does not belong to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string 'a' using left-most derivation:
+	S	=>	aAB
+
+The input string has been exhausted but there are still Variables remaining in the final sentential form
+Thus, this input string 'a' does not belong to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string 'aabb' using left-most derivation:
+	S	=>	aAB
+		=>	aaABB
+		=>	aabBB
+		=>	aabbB
+
+The input string has been exhausted but there are still Variables remaining in the final sentential form
+Thus, this input string 'aabb' does not belong to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string 'abbb' using left-most derivation:
+	S	=>	aAB
+		=>	abB
+		=>	abb
+		=>	
+
+The input string has not yet been exhausted but there are no Variables remaining in the sentential form
+	to match to the LHS of a Production Rule
+Thus, this input string 'abbb' does not belong to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string '' using left-most derivation:
+
+The input string is empty and there are no epsilon Production Rules in this grammar
+Thus, this empty input string '' does not belong to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+=====================================================================================================================
+=====================================================================================================================
+
+
+======================================== Reading in a Grammar ==============================================
+The Grammar read in is a valid Simple Grammar
+Simple Grammar:
+	Variables = [S, R, L, C, A, Y, P, Z, X, T, D]
+	Terminals = [+, =, d, e, i, t, x, y, z, {, }]
+	Start Variable = S
+	Production Rules:
+		S -> {LR
+		R -> }
+		L -> iXTLC
+		L -> xAYPZ
+		C -> d
+		C -> eLD
+		A -> =
+		Y -> y
+		P -> +
+		Z -> z
+		X -> x
+		T -> t
+		D -> d
+
+========================= Parsing the test input strings for this grammar =========================
+
+Parsing the input string '{ixtx=y+zeixtx=y+zdd}' using left-most derivation:
+	S	=>	{LR
+		=>	{iXTLCR
+		=>	{ixTLCR
+		=>	{ixtLCR
+		=>	{ixtxAYPZCR
+		=>	{ixtx=YPZCR
+		=>	{ixtx=yPZCR
+		=>	{ixtx=y+ZCR
+		=>	{ixtx=y+zCR
+		=>	{ixtx=y+zeLDR
+		=>	{ixtx=y+zeiXTLCDR
+		=>	{ixtx=y+zeixTLCDR
+		=>	{ixtx=y+zeixtLCDR
+		=>	{ixtx=y+zeixtxAYPZCDR
+		=>	{ixtx=y+zeixtx=YPZCDR
+		=>	{ixtx=y+zeixtx=yPZCDR
+		=>	{ixtx=y+zeixtx=y+ZCDR
+		=>	{ixtx=y+zeixtx=y+zCDR
+		=>	{ixtx=y+zeixtx=y+zdDR
+		=>	{ixtx=y+zeixtx=y+zddR
+		=>	{ixtx=y+zeixtx=y+zdd}
+
+Derivation Complete (The string derived is equal to the input string)
+Thus, this input string '{ixtx=y+zeixtx=y+zdd}' belongs to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string '{x=y+z}' using left-most derivation:
+	S	=>	{LR
+		=>	{xAYPZR
+		=>	{x=YPZR
+		=>	{x=yPZR
+		=>	{x=y+ZR
+		=>	{x=y+zR
+		=>	{x=y+z}
+
+Derivation Complete (The string derived is equal to the input string)
+Thus, this input string '{x=y+z}' belongs to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string '{ixtx=y+zeixt=y+zdd}' using left-most derivation:
+	S	=>	{LR
+		=>	{iXTLCR
+		=>	{ixTLCR
+		=>	{ixtLCR
+		=>	{ixtxAYPZCR
+		=>	{ixtx=YPZCR
+		=>	{ixtx=yPZCR
+		=>	{ixtx=y+ZCR
+		=>	{ixtx=y+zCR
+		=>	{ixtx=y+zeLDR
+		=>	{ixtx=y+zeiXTLCDR
+		=>	{ixtx=y+zeixTLCDR
+		=>	{ixtx=y+zeixtLCDR
+		=>	
+
+There doesn't exist a Production Rule with Variable 'L' on the LHS and the RHS starting with terminal '='
+Thus, this input string '{ixtx=y+zeixt=y+zdd}' does not belong to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+=====================================================================================================================
+=====================================================================================================================
+
+
+======================================== Reading in a Grammar ==============================================
+The Grammar read in is a valid Simple Grammar
+Simple Grammar:
+	Variables = [S]
+	Terminals = [a, b, c]
+	Start Variable = S
+	Production Rules:
+		S -> aS
+		S -> bSS
+		S -> c
+
+========================= Parsing the test input strings for this grammar =========================
+
+Parsing the input string 'abcc' using left-most derivation:
+	S	=>	aS
+		=>	abSS
+		=>	abcS
+		=>	abcc
+
+Derivation Complete (The string derived is equal to the input string)
+Thus, this input string 'abcc' belongs to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string 'aabcbcc' using left-most derivation:
+	S	=>	aS
+		=>	aaS
+		=>	aabSS
+		=>	aabcS
+		=>	aabcbSS
+		=>	aabcbcS
+		=>	aabcbcc
+
+Derivation Complete (The string derived is equal to the input string)
+Thus, this input string 'aabcbcc' belongs to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string 'aaaabac' using left-most derivation:
+	S	=>	aS
+		=>	aaS
+		=>	aaaS
+		=>	aaaaS
+		=>	aaaabSS
+		=>	aaaabaSS
+		=>	aaaabacS
+
+The input string has been exhausted but there are still Variables remaining in the final sentential form
+Thus, this input string 'aaaabac' does not belong to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string 'bac' using left-most derivation:
+	S	=>	bSS
+		=>	baSS
+		=>	bacS
+
+The input string has been exhausted but there are still Variables remaining in the final sentential form
+Thus, this input string 'bac' does not belong to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+=====================================================================================================================
+=====================================================================================================================
+
+
+======================================== Reading in a Grammar ==============================================
+The Grammar read in is a valid Simple Grammar
+Simple Grammar:
+	Variables = [S, A, B, C, D]
+	Terminals = [+, 1, 2, =]
+	Start Variable = S
+	Production Rules:
+		S -> 1ABCD
+		A -> +
+		B -> 1
+		C -> =
+		D -> 2
+
+========================= Parsing the test input strings for this grammar =========================
+
+Parsing the input string '1+1=2' using left-most derivation:
+	S	=>	1ABCD
+		=>	1+BCD
+		=>	1+1CD
+		=>	1+1=D
+		=>	1+1=2
+
+Derivation Complete (The string derived is equal to the input string)
+Thus, this input string '1+1=2' belongs to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string '1+2=3' using left-most derivation:
+	S	=>	1ABCD
+		=>	1+BCD
+		=>	
+
+There doesn't exist a Production Rule with Variable 'B' on the LHS and the RHS starting with terminal '2'
+Thus, this input string '1+2=3' does not belong to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+=====================================================================================================================
+=====================================================================================================================
+
+
+======================================== Reading in a Grammar ==============================================
+The Grammar read in is a valid Simple Grammar
+Simple Grammar:
+	Variables = [S, A, B]
+	Terminals = [a, b]
+	Start Variable = S
+	Production Rules:
+		S -> aA
+		S -> b
+		A -> aB
+		B -> aB
+		B -> b
+
+========================= Parsing the test input strings for this grammar =========================
+
+Parsing the input string 'b' using left-most derivation:
+	S	=>	b
+
+Derivation Complete (The string derived is equal to the input string)
+Thus, this input string 'b' belongs to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string 'aaab' using left-most derivation:
+	S	=>	aA
+		=>	aaB
+		=>	aaaB
+		=>	aaab
+
+Derivation Complete (The string derived is equal to the input string)
+Thus, this input string 'aaab' belongs to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string 'aaaaaab' using left-most derivation:
+	S	=>	aA
+		=>	aaB
+		=>	aaaB
+		=>	aaaaB
+		=>	aaaaaB
+		=>	aaaaaaB
+		=>	aaaaaab
+
+Derivation Complete (The string derived is equal to the input string)
+Thus, this input string 'aaaaaab' belongs to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string '' using left-most derivation:
+
+The input string is empty and there are no epsilon Production Rules in this grammar
+Thus, this empty input string '' does not belong to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string 'bb' using left-most derivation:
+	S	=>	b
+		=>	
+
+The input string has not yet been exhausted but there are no Variables remaining in the sentential form
+	to match to the LHS of a Production Rule
+Thus, this input string 'bb' does not belong to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+Parsing the input string 'abb' using left-most derivation:
+	S	=>	aA
+		=>	
+
+There doesn't exist a Production Rule with Variable 'A' on the LHS and the RHS starting with terminal 'b'
+Thus, this input string 'abb' does not belong to the language that this grammar defines
+------------------------------------------------------------------------------------------------------------
+
+=====================================================================================================================
+=====================================================================================================================
+
+
+======================================== Reading in a Grammar ==============================================
+InvalidProductionException: Production 'S -> AB' contains an invalid Terminal
+InvalidProductionException: Production 'B -> BA' contains an invalid Terminal
+The Grammar read in is NOT a valid Simple Grammar
+
+=====================================================================================================================
+=====================================================================================================================
+
+
+======================================== Reading in a Grammar ==============================================
+InvalidProductionException: Production 'A -> ab' contains an invalid Variable on the RHS
+InvalidProductionException: Production 'B -> ab' contains an invalid Variable on the RHS
+The Grammar read in is NOT a valid Simple Grammar
+
+=====================================================================================================================
+=====================================================================================================================
+
+
+======================================== Reading in a Grammar ==============================================
+InvalidProductionException: Production '0 -> a12' contains an invalid Variable on the LHS ('0')
+InvalidProductionException: Production '1 -> a12' contains an invalid Variable on the LHS ('1')
+InvalidProductionException: Production '1 -> b' contains an invalid Variable on the LHS ('1')
+InvalidProductionException: Production '2 -> b' contains an invalid Variable on the LHS ('2')
+The Grammar read in is NOT a valid Simple Grammar
+
+=====================================================================================================================
+=====================================================================================================================
+
+
+RunAssignment has Completed Successfully! 
+Thank You, and have a nice day!
