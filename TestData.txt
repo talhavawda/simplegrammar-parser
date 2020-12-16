@@ -10,6 +10,7 @@ bbaaa
 a
 aabb
 abbb
+
 ==
 S -> {LR
 R -> }
@@ -56,6 +57,7 @@ B -> b
 b
 aaab
 aaaaaab
+
 bb
 abb
 ==

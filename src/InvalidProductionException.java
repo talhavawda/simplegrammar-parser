@@ -5,8 +5,8 @@ import java.io.IOException;
  */
 public class InvalidProductionException extends IOException {
 
-	String invalidProduction;
-	String invalidType; //Reason why this Production is invalid, e.g. 'Rewrite symbol not found'
+	String invalidProduction;   //The Production Rule that is an invalid simple-grammar Production Rule
+	String invalidType;         //The reason why this Production Rule is an invalid simple-grammar Production -> it is assigned one of the constants below
 
 	public static final String INVALID_PRODUCTION = "Production is not a valid Production Rule";
 	public static final String NO_REWRITE = "Production doesn't contain the Rewrite (->) symbol";
@@ -61,7 +61,7 @@ public class InvalidProductionException extends IOException {
 			invalidType += " ('" + invalidProduction.charAt(0) + "')";
 		}
 
-		String toInsert = " '" + invalidProduction + "'";
+		String toInsert = " '" + invalidProduction + "'"; //the actual Production Rule that is invalid as a string in quotes
 
 		int index = invalidType.indexOf(" "); //index of the first whitespace in the invalidType (i.ee the space after 'Production')
 

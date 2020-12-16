@@ -150,7 +150,8 @@ public class SimpleGrammar {
 		System.out.println("\nParsing the input string '" + s + "' using leftmost derivation:");
 
 		if (s.length() == 0) {
-			System.out.println("\tThe input string is empty and as such does not belong to the language\nthat this grammar defines as there is no epsilon Production Rule");
+			System.out.println("\tThe input string is empty and as such does not belong to the language\n\tthat this grammar defines as there is no epsilon Production Rule");
+			return;
 		}
 
 
@@ -169,7 +170,7 @@ public class SimpleGrammar {
 			Character c = s.charAt(i);
 
 			if (sententialFormVariables.isEmpty()) {
-				System.out.println("\n\nThe input string has not yet been exhausted but there are no Variables remaining in the sentential form to match to the LHS of a Production Rule");
+				System.out.println("\n\nThe input string has not yet been exhausted but there are no Variables remaining in the sentential form\n\tto match to the LHS of a Production Rule");
 				System.out.println("Thus, this input string '" + s + "' does not belong to the language that this grammar defines");
 				acceptString = false;
 				break;
