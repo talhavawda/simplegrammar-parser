@@ -184,7 +184,7 @@ public class SimpleGrammar {
 		Character lhsChar = lhs.charAt(0); //get the Variable on the LHS (There should only be 1 -> ensured by the above if statement)
 
 
-		if (lhsChar < 'A' || lhsChar > 'Z' ) {
+		if (lhsChar < 'A' || lhsChar > 'Z' ) { //ALT: if(Character.isUpperCase(lhsChar))
 			//This Production Rule is invalid as the character symbol on the LHS is not a Valid Variable
 			throw new InvalidProductionException(production, InvalidProductionException.INVALID_LHS_VARIABLE);
 		}
@@ -194,7 +194,8 @@ public class SimpleGrammar {
 
 		Character terminal = rhs.charAt(0);
 
-		if ((terminal < 'a' || terminal > 'z') && !specialTerminals.contains(terminal)) { //if not a lowercase alphabetical character and also not a special terminal
+		if ((terminal < 'a' || terminal > 'z') && !specialTerminals.contains(terminal)) { //if not a lowercase alphabetical terminal character and also not a special terminal
+
 			//This Production Rule is invalid as the first character symbol on the RHS is not a Valid Terminal
 			throw new InvalidProductionException(production, InvalidProductionException.INVALID_TERMINAL);
 		}
@@ -206,7 +207,7 @@ public class SimpleGrammar {
 
 				Character variable = rhs.charAt(i);
 
-				if (variable < 'A' || variable > 'Z') {
+				if (variable < 'A' || variable > 'Z') { //ALT: if(Character.isUpperCase(variable))
 					//This Production Rule is invalid as a subsequent character symbol on the RHS (after the Terminal) is not a Valid Variable
 					throw new InvalidProductionException(production, InvalidProductionException.INVALID_RHS_VARIABLE);
 				}
