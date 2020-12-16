@@ -34,7 +34,7 @@ public class RunAssignment {
 
 		/*
 
-			The TestData.txt file contains the 2 grammars from the Assignment Specification Document, and also an
+			The TestData.txt file contains the 2 grammars (as the first 2) from the Assignment Specification Document, and also an
 			additional 6 grammars
 
 			The first 5 Grammars are Valid Simple-Grammars whilst the last 3 Grammars are not a valid Simple-Grammars
@@ -45,9 +45,10 @@ public class RunAssignment {
 			Structure of the TestData.txt file:
 
 				Production Rules for Grammar 1 (one Rule on each line)
-					i.e. S -> aA | b is written as two separate Rules:
+					- i.e. S -> aA | b is written as two separate Rules:
 						S -> aA
 						S -> b
+					- There is whitespace on either side of the rewrite ('->') symbol
 				...
 				/
 				Test strings for Grammar 1 (one string on each line) [Note: A blank/empty line represents the empty input string]
