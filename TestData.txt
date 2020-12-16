@@ -69,3 +69,27 @@ B -> b
 aba
 abaa
 ==
+S -> b
+S -> aA
+A -> aB
+A -> ab
+B -> aB
+B -> ab
+B -> b
+/
+b
+aaab
+aaaaaab
+bb
+abb
+==
+0 -> a12
+1 -> a12
+1 -> b
+2 -> b
+/
+aabbb
+aaabbbb
+abb
+bbaaa
+==

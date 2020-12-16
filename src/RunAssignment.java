@@ -35,9 +35,9 @@ public class RunAssignment {
 		/*
 
 			The TestData.txt file contains the 2 grammars from the Assignment Specification Document, and also an
-			additional 4 grammars
+			additional 6 grammars
 
-			The first 5 Grammars are Valid Simple-Grammars whilst the 6th (last) Grammar is not a valid Simple-Grammar
+			The first 5 Grammars are Valid Simple-Grammars whilst the last 3 Grammars are not a valid Simple-Grammars
 			Each grammar's corresponding input test strings contain both strings that belong and strings that don't belong
 			 to the language that the grammar defines
 

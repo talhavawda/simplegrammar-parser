@@ -82,7 +82,7 @@ public class SimpleGrammar {
 
 
 		if (lhsChar < 'A' || lhsChar > 'Z' ) {
-			throw new InvalidProductionException(production, InvalidProductionException.INVALID_VARIABLE);
+			throw new InvalidProductionException(production, InvalidProductionException.INVALID_LHS_VARIABLE);
 		}
 
 
@@ -104,7 +104,7 @@ public class SimpleGrammar {
 				Character variable = rhs.charAt(i);
 
 				if (variable < 'A' || variable > 'Z') {
-					throw new InvalidProductionException(production, InvalidProductionException.INVALID_VARIABLE);
+					throw new InvalidProductionException(production, InvalidProductionException.INVALID_RHS_VARIABLE);
 				}
 
 			}
