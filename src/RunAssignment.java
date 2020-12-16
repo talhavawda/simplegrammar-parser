@@ -17,7 +17,7 @@ public class RunAssignment {
 
 		System.out.println("COMP314 Assignment 2 - Parsing simple-grammars");
 		System.out.println("\tDetermining if each Grammar in the TestData text file is a valid Simple Grammar, and if it is, parsing each\n" +
-				"\tinput test string for this Simple Grammar to determine whether it belongs to the language defined by this grammar\n\n");
+				"\tinput test string for this Simple Grammar to determine whether it belongs to the language defined by this Simple Grammar\n\n");
 		System.out.println("Developed by Group P:\n\tTalha Vawda\n\tDivya Soomaroo\n\tAdin Arumugam\n\tKhulekani Mfeka");
 		System.out.println("====================\n\n");
 

@@ -112,6 +112,7 @@ public class SimpleGrammar {
 			specialTerminals.add('-');
 			specialTerminals.add('*');
 			specialTerminals.add('/');
+			specialTerminals.add('=');
 			specialTerminals.add('0');
 			specialTerminals.add('1');
 			specialTerminals.add('2');
@@ -271,10 +272,11 @@ public class SimpleGrammar {
 	 */
 	public void parseString(String s) {
 
-		System.out.println("\nParsing the input string '" + s + "' using leftmost derivation:");
+		System.out.println("\nParsing the input string '" + s + "' using left-most derivation:");
 
 		if (s.length() == 0) {
-			System.out.println("\tThe input string is empty and as such does not belong to the language\n\tthat this grammar defines as there is no epsilon Production Rule");
+			System.out.println("\nThe input string is empty and there are no epsilon Production Rules in this grammar");
+			System.out.println("Thus, this empty input string '' does not belong to the language that this grammar defines");
 			return; //input string is invalid so code below shouldn't be executed (return void)
 		}
 
@@ -380,7 +382,7 @@ public class SimpleGrammar {
 		}
 
 
-		if (!sententialFormVariables.isEmpty()) {
+		if (!sententialFormVariables.isEmpty() && (acceptString == true)) {
 			System.out.println("\n\nThe input string has been exhausted but there are still Variables remaining in the final sentential form");
 			System.out.println("Thus, this input string '" + s + "' does not belong to the language that this grammar defines");
 			acceptString = false;
@@ -393,8 +395,8 @@ public class SimpleGrammar {
 	}
 
 	/**
-	 * Displays all the components of this Simple Grammar: its Variables, Terminals, Start Variable, and Production Rules
-	 * @return
+	 *
+	 * @return A String that can be called to display all the components of this Simple Grammar: its Variables, Terminals, Start Variable, and Production Rules
 	 */
 	@Override
 	public String toString() {

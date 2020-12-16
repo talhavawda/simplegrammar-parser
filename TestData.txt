@@ -35,8 +35,8 @@ S -> bSS
 S -> c
 /
 abcc
-aaaabac
 aabcbcc
+aaaabac
 bac
 ==
 S -> 1ABCD
@@ -92,4 +92,8 @@ aabbb
 aaabbbb
 abb
 bbaaa
+a
+aabb
+abbb
+
 ==
